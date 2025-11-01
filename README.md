@@ -2,7 +2,7 @@
 
 REST API for managing drone configurations and temperature logs.
 
-**Author:** Suphitcha  Yuennan
+**Author:** Suphitcha  
 **Student ID:** 66010870
 
 ---
@@ -14,31 +14,62 @@ REST API for managing drone configurations and temperature logs.
 - Retrieve temperature logs with pagination
 - Create new temperature log entries
 
-## Setup
+## Prerequisites
 
-1. Clone the repository
+- Node.js (v14 or higher)
+- npm (comes with Node.js)
+
+## Installation & Setup
+
+### 1. Clone the repository
 ```bash
 git clone https://github.com/YOUR_USERNAME/drone-api-66010870.git
 cd drone-api-66010870
 ```
 
-2. Install dependencies
+### 2. Install dependencies
 ```bash
 npm install
 ```
 
-3. Configure environment variables
+### 3. Configure environment variables
+
+Create a `.env` file in the root directory:
+
 ```bash
 cp .env.example .env
-# Edit .env with your actual values
 ```
 
-4. Start the server
+Then edit `.env` with your actual values:
+
+```env
+CONFIG_URL=https://script.google.com/macros/s/YOUR_CONFIG_URL/exec
+LOG_URL=https://app-tracking.pockethost.io/api/collections/drone_logs/records
+LOG_API_TOKEN=your_actual_token_here
+PORT=3000
+```
+
+### 4. Run the server
+
+**Production mode:**
 ```bash
 npm start
 ```
 
+**Development mode (with auto-reload):**
+```bash
+npm run dev
+```
+
 The server will run on `http://localhost:3000`
+
+### 5. Test the API
+
+Open your browser or use Postman to test:
+- `http://localhost:3000/` - Health check
+- `http://localhost:3000/configs/3001` - Get drone config
+- `http://localhost:3000/status/3001` - Get drone status
+- `http://localhost:3000/logs/3001` - Get drone logs
 
 ## API Endpoints
 
@@ -136,6 +167,6 @@ Create a new temperature log entry.
 
 ## License
 
-Copyright (c) 2025 Suphitcha (66010870). All rights reserved.
+Copyright (c) 2025 Suphitcha Yuennan(66010870). All rights reserved.
 
 This project is created for educational purposes as part of a university assignment.
