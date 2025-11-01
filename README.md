@@ -2,7 +2,7 @@
 
 REST API for managing drone configurations and temperature logs.
 
-**Author:** Suphitcha  
+**Author:** Suphitcha  Yuennan
 **Student ID:** 66010870
 
 ---
