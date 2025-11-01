@@ -131,7 +131,7 @@ Create a new temperature log entry.
 
 ## Author
 
-- **Name:** Suphitcha
+- **Name:** Suphitcha Yuennan
 - **Student ID:** 66010870
 
 ## License
