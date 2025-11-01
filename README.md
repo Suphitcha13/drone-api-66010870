@@ -23,7 +23,7 @@ REST API for managing drone configurations and temperature logs.
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/YOUR_USERNAME/drone-api-66010870.git
+git clone https://github.com/Suphitcha13/drone-api-66010870
 cd drone-api-66010870
 ```
 
@@ -43,9 +43,9 @@ cp .env.example .env
 Then edit `.env` with your actual values:
 
 ```env
-CONFIG_URL=https://script.google.com/macros/s/YOUR_CONFIG_URL/exec
-LOG_URL=https://app-tracking.pockethost.io/api/collections/drone_logs/records
-LOG_API_TOKEN=your_actual_token_here
+CONFIG_URL=your_config_url_here
+LOG_URL=your_log_url_here
+LOG_API_TOKEN=your_token_here
 PORT=3000
 ```
 
