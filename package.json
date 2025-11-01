@@ -7,7 +7,7 @@
     "dev": "node --watch src/server.js"
   },
   "keywords": ["drone", "api", "express"],
-  "author": "Suphitcha (66010870)",
+  "author": "Suphitcha Yuennan(66010870)",
   "license": "UNLICENSED",
   "dependencies": {
     "axios": "^1.13.1",
