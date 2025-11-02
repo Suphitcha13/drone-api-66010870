@@ -17,28 +17,41 @@ async function fetchConfigData() {
     const response = await axios.get(process.env.CONFIG_URL);
     
     console.log('Response status:', response.status);
-    console.log('Response type:', Array.isArray(response.data) ? 'Array' : 'Object');
+    console.log('Response data type:', typeof response.data);
+    console.log('Is array?:', Array.isArray(response.data));
     
-    // ตรวจสอบว่า response.data เป็น Array หรือ Object
+    // ถ้า response.data มี keys ให้แสดง
+    if (response.data && typeof response.data === 'object' && !Array.isArray(response.data)) {
+      console.log('Response keys:', Object.keys(response.data));
+    }
+    
+    // ลองหาข้อมูลจากหลายแหล่ง
     let dataArray;
     
     if (Array.isArray(response.data)) {
-      // ถ้าเป็น Array โดยตรง
-      console.log('Data is directly an array');
+      // กรณีที่ 1: response.data เป็น array โดยตรง
+      console.log('Case 1: Direct array');
       dataArray = response.data;
-    } else if (response.data && response.data.data) {
-      // ถ้าเป็น Object ที่มี field data
-      console.log('Data is in .data field');
+    } else if (response.data && Array.isArray(response.data.data)) {
+      // กรณีที่ 2: response.data.data เป็น array
+      console.log('Case 2: .data field contains array');
       dataArray = response.data.data;
+    } else if (response.data && Array.isArray(response.data.items)) {
+      // กรณีที่ 3: response.data.items เป็น array
+      console.log('Case 3: .items field contains array');
+      dataArray = response.data.items;
     } else {
-      throw new Error('Invalid response structure');
+      // ไม่เจอข้อมูลที่ถูกต้อง - แสดงข้อมูลทั้งหมดเพื่อ debug
+      console.error('Cannot find array in response. Full response:', JSON.stringify(response.data).substring(0, 500));
+      throw new Error('Invalid response structure - no array found');
     }
     
-    if (!Array.isArray(dataArray)) {
-      throw new Error('Data is not an array');
+    if (!Array.isArray(dataArray) || dataArray.length === 0) {
+      throw new Error('Data array is empty or invalid');
     }
     
     console.log('Found', dataArray.length, 'products');
+    console.log('First product sample:', JSON.stringify(dataArray[0]));
     
     return dataArray;
   } catch (error) {
