@@ -17,23 +17,30 @@ async function fetchConfigData() {
     const response = await axios.get(process.env.CONFIG_URL);
     
     console.log('Response status:', response.status);
-    console.log('Response data keys:', Object.keys(response.data));
+    console.log('Response type:', Array.isArray(response.data) ? 'Array' : 'Object');
     
-    if (!response.data) {
-      throw new Error('No data in response');
+    // ตรวจสอบว่า response.data เป็น Array หรือ Object
+    let dataArray;
+    
+    if (Array.isArray(response.data)) {
+      // ถ้าเป็น Array โดยตรง
+      console.log('Data is directly an array');
+      dataArray = response.data;
+    } else if (response.data && response.data.data) {
+      // ถ้าเป็น Object ที่มี field data
+      console.log('Data is in .data field');
+      dataArray = response.data.data;
+    } else {
+      throw new Error('Invalid response structure');
     }
     
-    if (!response.data.data) {
-      throw new Error('No "data" field in response');
-    }
-    
-    if (!Array.isArray(response.data.data)) {
+    if (!Array.isArray(dataArray)) {
       throw new Error('Data is not an array');
     }
     
-    console.log('Found', response.data.data.length, 'products');
+    console.log('Found', dataArray.length, 'products');
     
-    return response.data.data;
+    return dataArray;
   } catch (error) {
     console.error('Fetch config error:', error.message);
     throw new Error(`Failed to fetch data: ${error.message}`);
