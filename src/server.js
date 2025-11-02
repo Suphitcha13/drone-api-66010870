@@ -212,6 +212,32 @@ app.post("/logs", async (req, res) => {
   }
 });
 
+// DELETE /logs/:logId
+app.delete("/logs/:logId", async (req, res) => {
+  try {
+    const { logId } = req.params;
+    console.log('DELETE /logs/:logId ->', logId);
+
+    const url = `${process.env.LOG_URL}/${logId}`;
+    
+    const response = await axios.delete(url, {
+      headers: { Authorization: `Bearer ${process.env.LOG_API_TOKEN}` }
+    });
+
+    console.log('Log deleted:', logId);
+
+    res.json({ 
+      success: true, 
+      message: "Log deleted successfully"
+    });
+  } catch (error) {
+    console.error('Error in DELETE /logs/:logId:', error.response?.data || error.message);
+    res.status(500).json({ 
+      error: error.response?.data || error.message 
+    });
+  }
+});
+
 // Health check
 app.get("/", (req, res) => {
   res.json({ 
