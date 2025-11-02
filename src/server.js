@@ -17,43 +17,35 @@ async function fetchConfigData() {
     const response = await axios.get(process.env.CONFIG_URL);
     
     console.log('Response status:', response.status);
-    console.log('Response data type:', typeof response.data);
-    console.log('Is array?:', Array.isArray(response.data));
     
-    // ถ้า response.data มี keys ให้แสดง
-    if (response.data && typeof response.data === 'object' && !Array.isArray(response.data)) {
-      console.log('Response keys:', Object.keys(response.data));
-    }
+    let dataArray = null;
     
-    // ลองหาข้อมูลจากหลายแหล่ง
-    let dataArray;
-    
-    if (Array.isArray(response.data)) {
-      // กรณีที่ 1: response.data เป็น array โดยตรง
-      console.log('Case 1: Direct array');
-      dataArray = response.data;
-    } else if (response.data && Array.isArray(response.data.data)) {
-      // กรณีที่ 2: response.data.data เป็น array
-      console.log('Case 2: .data field contains array');
+    // กรณีที่ 1: response.data.data (ตามที่เห็นจาก browser)
+    if (response.data && response.data.data && Array.isArray(response.data.data)) {
+      console.log('✓ Found data in response.data.data');
       dataArray = response.data.data;
-    } else if (response.data && Array.isArray(response.data.items)) {
-      // กรณีที่ 3: response.data.items เป็น array
-      console.log('Case 3: .items field contains array');
-      dataArray = response.data.items;
-    } else {
-      // ไม่เจอข้อมูลที่ถูกต้อง - แสดงข้อมูลทั้งหมดเพื่อ debug
-      console.error('Cannot find array in response. Full response:', JSON.stringify(response.data).substring(0, 500));
-      throw new Error('Invalid response structure - no array found');
     }
-    
-    if (!Array.isArray(dataArray) || dataArray.length === 0) {
-      throw new Error('Data array is empty or invalid');
+    // กรณีที่ 2: response.data เป็น array เลย
+    else if (Array.isArray(response.data)) {
+      console.log('✓ response.data is array');
+      dataArray = response.data;
+    }
+    // กรณีที่ 3: ไม่เจอ
+    else {
+      console.error('Cannot find data array. Response structure:', {
+        hasData: !!response.data,
+        hasDataField: !!(response.data && response.data.data),
+        isArray: Array.isArray(response.data),
+        keys: response.data ? Object.keys(response.data) : []
+      });
+      throw new Error('Invalid response structure');
     }
     
     console.log('Found', dataArray.length, 'products');
-    console.log('First product sample:', JSON.stringify(dataArray[0]));
+    console.log('First product:', dataArray[0]);
     
     return dataArray;
+    
   } catch (error) {
     console.error('Fetch config error:', error.message);
     throw new Error(`Failed to fetch data: ${error.message}`);
