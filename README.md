@@ -163,8 +163,11 @@ Create a new temperature log entry.
 
 ## Author
 
-- **Name:** Suphitcha Yuennan
-- **Student ID:** 66010870
+**Suphitcha Yuennan (สุพิชชา ยืนนาน)**
+- Student ID: 66010870
+- Major: ระบบไอโอทีและสารสนเทศ
+- Faculty: วิศวกรรมศาสตร์
+- University: มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าเจ้าคุณทหารลาดกระบัง
 
 ## License
 
