@@ -2,7 +2,7 @@
 
 REST API for managing drone configurations and temperature logs.
 
-**Author:** Suphitcha  Yuennan
+**Author:** Suphitcha Yuennan  
 **Student ID:** 66010870
 
 ---
@@ -134,7 +134,8 @@ Create a new temperature log entry.
 ```json
 {
   "success": true,
-  "data": { ... }
+  "message": "Log created successfully",
+  "log_id": "abc123"
 }
 ```
 
