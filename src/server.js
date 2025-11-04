@@ -23,7 +23,6 @@ async function fetchConfigData() {
     
     let dataArray = null;
     
-    // ลอง parse ทุกกรณีที่เป็นไปได้
     if (response.data) {
       if (Array.isArray(response.data.data)) {
         console.log('✓ Found array in response.data.data');
@@ -87,8 +86,6 @@ function findDrone(drones, droneId) {
   console.log('Found drone:', drone.drone_name);
   return drone;
 }
-
-// ===== API Endpoints ตามโจทย์ =====
 
 // GET /configs/{droneId}
 app.get("/configs/:droneId", async (req, res) => {
